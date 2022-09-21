@@ -69,17 +69,17 @@
             <ul>
                 <li>
                     <label for="caudalMC">Caudal: </label>
-                    <input type="number" name="caudalMC" id="caudalMC">
+                    <input type="number" name="caudalMC" id="caudalMC" value="900">
                 </li>
                 <li>
                     <label for="noriaMC">Velocidad de noria: </label>
-                    <input type="number" name="noriaMC" id="noriaMC">
+                    <input type="number" name="noriaMC" id="noriaMC" value="4600">
                 </li>
                 <li>
                     <select name="caudaltypeMC" id="CTypeMC">
                         <option value="">Seleccionar un caudalimetro</option>
-                        <option value="esPolloMC">Escaldadora de pollos</option>
-                        <option value="duchaPDesMC">Ducha postdeslume</option>
+                        <option value="esDuMC">Escaldadora de pollos</option>
+                        <option value="esDuMC">Ducha postdeslume</option>
                         <option value="esGarrasMC">Escaldadora de garras</option>
                         <option value="duchaPevisMC">Lavadora externa e interna de carcasas</option>+
                         <option value="pChMC">Pre chiller de Pollos</option>
@@ -90,6 +90,9 @@
                         <option value="chCMC">Chiller de Cogotes</option>
                         <option value="chGMC">Chiller de Garras</option>
                     </select>
+                </li>
+                <li>
+                    <button type="button" id="calcularMC">Calcular</button>
                 </li>    
             </ul>
         </form>
