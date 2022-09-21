@@ -70,10 +70,14 @@
                 <li>
                     <label for="caudalMC">Caudal: </label>
                     <input type="number" name="caudalMC" id="caudalMC" value="900">
+                    <input type="radio" name="unitC" id="litrosR" checked>
+                    <label for="litrosR">Ltrs/H</label>
+                    <input type="radio" name="unitC" id="metrosR">
+                    <label for="metrosR">m3/H</label>
                 </li>
                 <li>
                     <label for="noriaMC">Velocidad de noria: </label>
-                    <input type="number" name="noriaMC" id="noriaMC" value="4600">
+                    <input type="number" name="noriaMC" id="noriaMC" value="4600" max="8500">
                 </li>
                 <li>
                     <select name="caudaltypeMC" id="CTypeMC">

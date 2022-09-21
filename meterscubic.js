@@ -15,7 +15,7 @@ function findObject(select, noria){
     if(select == 'esDuMC'){
         arr = arrZero;
     }
-    return arr.find(item => item.velNoria > noria);
+    return arr.find(item => item.velNoria >= noria);
 }
 
 let $calcularMC = document.querySelector('#calcularMC');
