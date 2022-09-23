@@ -121,7 +121,13 @@ const caudales ={
 function caudalFinal(place, vnoria, radio){
 
     let xCaudal = Array.from(caudales[place]);
-    let xyCaudal = xCaudal.find(item => item.velNoria > vnoria);
+    let xyCaudal;
+    if (vnoria = 8500){
+        xyCaudal = xCaudal.find(item => item.velNoria == vnoria);
+    } else if(vnoria < 8500){
+        xyCaudal = xCaudal.find(item => item.velNoria < vnoria);
+    }
+    
     
     if(radio == 'metros'){
         return ((xyCaudal.caudal) / 1000);
