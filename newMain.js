@@ -174,7 +174,7 @@
     };
 
 })();
-/*
+
 (function calculator(){
 
     const subMinutes = (values) =>{
@@ -218,8 +218,7 @@
     }
     
     const input = () => {
-        let $Calcular = document.querySelector('#BCalcular');
-        let $DeNuevo = document.querySelector('#BDeNuevo');
+
         let resultDiv = document.querySelector('#ResultDiv');
         let formStart = document.querySelector('#formStart');
         let timeOne = document.querySelector('#ITime').value;
@@ -234,60 +233,69 @@
         let lConsumidosS = document.querySelector('#LConsumidos');
 
         return{
-            $Calcular, $DeNuevo, resultDiv, formStart, timeOne, timeTwo,
+            resultDiv, formStart, timeOne, timeTwo,
             litrosOne, litrosTwo, vNoria, $select, lPorAvesS, interTiempoS,
             lConsumidosS
         }
     }
 
-    $Calcular.addEventListener('click', (e) =>{
-
+    const displayHidden = (state) =>{
+        if(state == true){
+            input()["resultDiv"].style.display = 'block';
+            input()["formStart"].style.display = 'none';
+        }else if(state == false){
+            input()["resultDiv"].style.display = 'none';
+            input()["formStart"].style.display = 'block';
+        }
+    }
+    
+    const render = () => {
         let variable = 1;
         let unitT = 'L/aves';
-    
-        if ($select == 'esGarras' || $select == 'chG'){
+
+        if (input()["$select"] == 'esGarras' || input()["$select"] == 'chG'){
             variable = 0.07;
             unitT = 'L/Kg de garras'
-        } else if($select == 'chHC'){
+        } else if(input()["$select"] == 'chHC'){
             variable = 0.075;
             unitT = 'L/Kg de Higado - Corazon';
-        } else if($select == 'chM'){
+        } else if(input()["$select"] == 'chM'){
             variable = 0.03;
             unitT = 'L/Kg de Molleja';
-        } else if($select == 'chC'){
+        } else if(input()["$select"] == 'chC'){
             variable = 0.08;
             unitT = 'L/Kg de cogotes'
         }
         
-        let litrosT = litrosTwo - litrosOne;
-        let restTime = subMinutes([timeTwo, timeOne]);
+        let litrosT = input()["litrosTwo"] - input()["litrosOne"];
+        let restTime = subMinutes([input()["timeTwo"], input()["timeOne"]]);
         let restTimeFloat = timeStringToFloat(restTime);
-        let litresPerChicken = (((litrosTwo - litrosOne)/(vNoria * restTimeFloat * variable)).toFixed(2)) + " " + unitT;
-    
-        lPorAvesS.textContent = litresPerChicken;
-        interTiempoS.textContent = restTime + " Horas";
-        lConsumidosS.textContent = litrosT + " Litros";
+        let litresPerChicken = (((input()["litrosTwo"] - input()["litrosOne"])/(input()["vNoria"] * restTimeFloat * variable)).toFixed(2)) + " " + unitT;
         
-        displayHidden(true);
-
-    });
-    
-    const displayHidden = (state) =>{
-        if(state == true){
-            input["resultDiv"].style.display = 'block';
-            input["formStart"].style.display = 'none';
-        }else if(state == false){
-            input["resultDiv"].style.display = 'none';
-            input["formStart"].style.display = 'block';
-        }
+        input()["lPorAvesS"].textContent = litresPerChicken;
+        input()["interTiempoS"].textContent = restTime + " Horas";
+        input()["lConsumidosS"].textContent = litrosT + " Litros";
     }
 
-    input["$DeNuevo"].addEventListener('click', (e) =>{
+    const button = () => {
+        let $Calcular = document.querySelector('#BCalcular');
+        let $DeNuevo = document.querySelector('#BDeNuevo');
 
-        displayHidden(false);
+        $Calcular.addEventListener('click', (e) =>{
+            render();
+            displayHidden(true);
+        });
 
-    });
+        $DeNuevo.addEventListener('click', (e) =>{
+
+            displayHidden(false);
+
+        });
+
+    };
+
+    return{
+        plubicButtonTwo: button()
+    }
 
 })();
-
-*/
