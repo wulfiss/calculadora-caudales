@@ -1,3 +1,44 @@
+(function tab(){
+
+    const input = () => {
+        let $calculadoraRapida = document.querySelector('#calculadoraRapida');
+        let $calculadoraFull = document.querySelector('#calculadoraFull');
+        let sectionOne = document.querySelector('#sOne');
+        let sectionTwo = document.querySelector('#sTwo');
+        
+        return{
+            $calculadoraRapida, $calculadoraFull, sectionOne, sectionTwo
+        }
+    }
+
+    const display = (state) =>{
+        if(state == true){
+            input()["sectionOne"].style.display = 'block';
+            input()["sectionTwo"].style.display = 'none';
+        }else if(state == false){
+            input()["sectionOne"].style.display = 'none';
+            input()["sectionTwo"].style.display = 'block';
+        }
+    }
+
+    const button = () =>{
+    
+        input()['$calculadoraFull'].addEventListener('click', (e) =>{
+            display(true);
+        });
+
+        input()['$calculadoraRapida'].addEventListener('click', (e) =>{
+            display(false);
+        })
+    }
+
+    return{
+        publicButton: button()
+    }
+
+
+})();
+
 (function metricubic(){
     
     const caudales ={
@@ -233,10 +274,13 @@
         let interTiempoS = document.querySelector('#interTiempo');
         let lConsumidosS = document.querySelector('#LConsumidos');
 
+        let $Calcular = document.querySelector('#BCalcular');
+        let $DeNuevo = document.querySelector('#BDeNuevo');
+
         return{
             resultDiv, formStart, timeOne, timeTwo,
             litrosOne, litrosTwo, vNoria, $select, lPorAvesS, interTiempoS,
-            lConsumidosS
+            lConsumidosS, $Calcular, $DeNuevo
         }
     }
 
@@ -279,15 +323,14 @@
     }
 
     const button = () => {
-        let $Calcular = document.querySelector('#BCalcular');
-        let $DeNuevo = document.querySelector('#BDeNuevo');
 
-        $Calcular.addEventListener('click', (e) =>{
+
+        input()["$Calcular"].addEventListener('click', (e) =>{
             render();
             displayHidden(true);
         });
 
-        $DeNuevo.addEventListener('click', (e) =>{
+        input()["$DeNuevo"].addEventListener('click', (e) =>{
 
             displayHidden(false);
 
