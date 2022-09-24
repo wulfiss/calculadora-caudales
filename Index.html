@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--<script src="main.js" defer></script>-->
-    <script src="newMain.js" defer></script>
+    <script src="main.js" defer></script>
     <title>Caudales</title>
 </head>
 <body>
@@ -33,8 +32,9 @@
                     <input type="number" name="final-caudal" id="FCaudal" value="13000">
                 </li>
                 <li>
-                    <select name="caudaltype" id="CType">
-                        <option value="">Seleccionar un caudalimetro</option>
+                    <label for="CType">Seleccionar un caudalímetro: </label>
+                    <select name="caudaltype" id="CType" required>
+                        <option value="">---</option>
                         <option value="esPollo">Escaldadora de pollos</option>
                         <option value="duchaPDes">Ducha postdeslume</option>
                         <option value="esGarras">Escaldadora de garras</option>
@@ -42,7 +42,7 @@
                         <option value="pCh">Pre chiller de Pollos</option>
                         <option value="ch1">Chiller nº 1 de Pollos</option>
                         <option value="ch2">Chiller nº 2 de Pollos</option>
-                        <option value="chHC">Chiller de Higado-Corazon</option>
+                        <option value="chHC">Chiller de Hígado-Corazón</option>
                         <option value="chM">Chiller de Panzas</option>
                         <option value="chC">Chiller de Cogotes</option>
                         <option value="chG">Chiller de Garras</option>
@@ -62,14 +62,16 @@
                 <button type="button" id="BDeNuevo">Calcular de nuevo</button>
             </p>
         </Div>
+
     </section>
+
     <section id="sTwo">
 
         <form action="">
             <ul>
                 <li>
                     <label for="caudalMC">Caudal: </label>
-                    <input type="number" name="caudalMC" id="caudalMC" value="900">
+                    <input type="number" name="caudalMCi" id="caudalMC" value="900">
                     <input type="radio" name="unitC" id="litrosR" value="litros" checked>
                     <label for="litrosR">l/h</label>
                     <input type="radio" name="unitC" id="metrosR" value="metros">
@@ -80,8 +82,9 @@
                     <input type="number" name="noriaMC" id="noriaMC" value="4600" max="8500">
                 </li>
                 <li>
-                    <select name="caudaltypeMC" id="CTypeMC">
-                        <option value="">Seleccionar un caudalimetro</option>
+                    <label for="CTypeMC">Seleccionar un caudalímetro: </label>
+                    <select name="caudaltypeMC" id="CTypeMC" required>
+                        <option value="">---</option>
                         <option value="arrOne">Escaldadora de pollos</option>
                         <option value="arrOne">Ducha postdeslume</option>
                         <option value="arrTwo">Escaldadora de garras</option>
@@ -89,7 +92,7 @@
                         <option value="arrFour">Pre chiller de Pollos</option>
                         <option value="arrFive">Chiller nº 1 de Pollos</option>
                         <option value="arrThree">Chiller nº 2 de Pollos</option>
-                        <option value="arrSix">Chiller de Higado-Corazon</option>
+                        <option value="arrSix">Chiller de Hígado-Corazón</option>
                         <option value="arrSeven">Chiller de Panzas</option>
                         <option value="arrEight">Chiller de Cogotes</option>
                         <option value="arrNine">Chiller de Garras</option>
