@@ -13,11 +13,11 @@
 
     const display = (state) =>{
         if(state == true){
-            input()["sectionOne"].style.display = 'block';
+            input()["sectionOne"].style.display = 'flex';
             input()["sectionTwo"].style.display = 'none';
         }else if(state == false){
             input()["sectionOne"].style.display = 'none';
-            input()["sectionTwo"].style.display = 'block';
+            input()["sectionTwo"].style.display = 'flex';
         }
     }
 
@@ -286,11 +286,11 @@
 
     const displayHidden = (state) =>{
         if(state == true){
-            input()["resultDiv"].style.display = 'block';
+            input()["resultDiv"].style.display = 'flex';
             input()["formStart"].style.display = 'none';
         }else if(state == false){
             input()["resultDiv"].style.display = 'none';
-            input()["formStart"].style.display = 'block';
+            input()["formStart"].style.display = 'flex';
         }
     }
     

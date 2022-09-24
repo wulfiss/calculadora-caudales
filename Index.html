@@ -10,35 +10,35 @@
 </head>
 <body>
     <div id="tabs">
-        <button type="button" id="calculadoraFull">Calculadora</button>
-        <button type="button" id="calculadoraRapida">Calculadora Rápida</button>
+        <button type="button" class='tabBtn' id="calculadoraFull">Calculadora</button>
+        <button type="button" class='tabBtn' id="calculadoraRapida">Calculadora Rápida</button>
     </div>
     <section id="sOne">
         <form action="" id="formStart">
-            <ul>
-                <li>
+            <ul id="ulOne">
+                <li class="liOne">
                     <label for="ITime">Hora Inicial: </label>
                     <input type="time" name="initial-time" id="ITime" value="04:20">
                 </li>
-                <li>
+                <li class="liOne">
                     <label for="FTime">Hora Final: </label>
                     <input type="time" name="final-time" id="FTime" value="06:24">
                 </li>
-                <li>
-                    <label for="VNoria">Velocidad de noria (aves/hora): </label>
+                <li class="liOne">
+                    <label for="VNoria">Vel. de noria (aves/hora): </label>
                     <input type="number" name="noria" id="VNoria" value="8500">
                 </li>
-                <li>    
+                <li class="liOne">
                     <label for="ICaudal">Caudal Inicial (litros): </label>
                     <input type="number" name="inital-caudal" id="ICaudal" value="10000">
                 </li>
-                <li>
+                <li class="liOne">
                     <label for="FCaudal">Caudal Final (litros): </label>
                     <input type="number" name="final-caudal" id="FCaudal" value="13000">
                 </li>
-                <li>
+                <li class="liOneSelect">
                     <label for="CType">Seleccionar un caudalímetro: </label>
-                    <select name="caudaltype" id="CType" required>
+                    <select name="caudaltype" id="CType" class='selectBar' required>
                         <option value="">---</option>
                         <option value="esPollo">Escaldadora de pollos</option>
                         <option value="duchaPDes">Ducha postdeslume</option>
@@ -53,9 +53,9 @@
                         <option value="chG">Chiller de Garras</option>
                     </select>
                 </li>
-                <li>
-                    <button type="button" id="BCalcular">Calcular</button>
-                </li>
+                <li class="liOne">
+                      <button type="button" id="BCalcular">Calcular</button>
+                </li>    
             </ul>
         </form>
 
@@ -83,7 +83,7 @@
                     <label for="metrosR">m3/h</label>
                 </li>
                 <li>
-                    <label for="noriaMC">Velocidad de noria: </label>
+                    <label for="noriaMC">Vel. de noria (aves/hora): </label>
                     <input type="number" name="noriaMC" id="noriaMC" value="4600" max="8500">
                 </li>
                 <li>
