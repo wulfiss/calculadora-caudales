@@ -174,10 +174,10 @@
 
         if (input()["noriaV"] == 8500){
             xyCaudal = xCaudal.find(item => item.velNoria == input()["noriaV"]);
-        } else if(input()["noriaV"] < 8500){
-            xyCaudal = xCaudal.find(item => item.velNoria < input()["noriaV"]);
+        }else if(input()["noriaV"] < 8500){
+            xyCaudal = xCaudal.find(item => item.velNoria > input()["noriaV"]);
         }
-          
+         
         if(input()["$radio"] == 'metros'){
             y = ((xyCaudal.caudal) / 1000);
             yTXT = xyCaudal.minCubic;
@@ -224,7 +224,6 @@
     const button = () => {
         
         input()["$calcularMC"].addEventListener('click', (e) =>{
-            input();
             render();
         });
     };
@@ -239,39 +238,39 @@
 
     const caudales ={
         arrOne:[ /*Escaldadora de pollos - Desplume*/
-            {minimo: 0.2, txtMinimo:'0.20 Litros/aves'}
+            {minimo: 0.2, txtMinimo:'0.20 l/aves'}
         ],
     
         arrTwo:[ /*Escaldadora de garras*/
-            {minimo: 0.2, txtMinimo:'0.20 L/Kg de garras'}
+            {minimo: 0.2, txtMinimo:'0.20 l/kg de garras'}
         ],
     
         arrThree:[ /*PostEviscerado - Ch2*/
-            {minimo: 1.50, txtMinimo:'1.50 Litros/aves'}
+            {minimo: 1.50, txtMinimo:'1.50 l/aves'}
         ],
     
         arrFour:[ /*PreCh*/
-            {minimo: 0.2, txtMinimo:'0.20 Litros/aves'}
+            {minimo: 0.2, txtMinimo:'0.20 l/aves'}
         ],
     
         arrFive:[ /*Ch1*/
-            {minimo: 0.2, txtMinimo:'0.20 Litros/aves'}
+            {minimo: 0.2, txtMinimo:'0.20 l/aves'}
         ],
     
         arrSix:[ /*higado-corazon*/
-            {minimo: 1.00, txtMinimo:'1.00 L/Kg de Hígado-Corazón'}
+            {minimo: 1.00, txtMinimo:'1.00 l/kg de Hígado-Corazón'}
         ],
     
         arrSeven:[ /*panza*/
-            {minimo: 1.00, txtMinimo:'1.00 L/Kg de Molleja'}
+            {minimo: 1.00, txtMinimo:'1.00 l/kg de Molleja'}
         ],
     
         arrEight:[/*Cogote*/
-            {minimo: 1.00, txtMinimo:'1.00 L/Kg de cogotes'}
+            {minimo: 1.00, txtMinimo:'1.00 l/kg de cogotes'}
         ],
     
         arrNine:[ /*Ch garras*/
-            {minimo: 1.00, txtMinimo:'1.00 L/Kg de garras'}
+            {minimo: 1.00, txtMinimo:'1.00 l/kg de garras'}
         ],
         
     };
