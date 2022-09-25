@@ -5,64 +5,132 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="main.js" defer></script>
-    <title>Caudales</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Caudales Calculadora</title>
 </head>
 <body>
+        <div id="tabs">
+            <button type="button" class='tabBtn active' id="calculadoraFull">Calculadora</button>
+            <button type="button" class='tabBtn inactive' id="calculadoraRapida">Calculadora Rápida</button>
+        </div>
+        <section id="sOne">
+            <form action="" id="formStart">
+                <ul id="ulOne">
+                    <li class="liOne">
+                        <label for="ITime">Hora Inicial</label>
+                        <input type="time" name="initial-time" id="ITime" value="04:20">
+                    </li>
+                    <li class="liOne">
+                        <label for="FTime">Hora Final</label>
+                        <input type="time" name="final-time" id="FTime" value="06:24">
+                    </li>
+                    <li class="liOne">
+                        <label for="VNoria">Vel. de noria (aves/hora)</label>
+                        <input type="number" name="noria" id="VNoria" value="8500">
+                    </li>
+                    <li class="liOne">
+                        <label for="ICaudal">Caudal Inicial (Litros)</label>
+                        <input type="number" name="inital-caudal" id="ICaudal" value="10000">
+                    </li>
+                    <li class="liOne">
+                        <label for="FCaudal">Caudal Final (Litros)</label>
+                        <input type="number" name="final-caudal" id="FCaudal" value="13000">
+                    </li>
+                    <li class="liOneSelect">
+                        <label for="CType">Seleccionar un caudalímetro</label>
+                        <select name="caudaltype" id="CType" class='selectBar' required>
+                            <option value="">---</option>
+                            <option value="arrOne">Escaldadora de pollos</option>
+                            <option value="arrOne">Ducha postdeslume</option>
+                            <option value="arrTwo">Escaldadora de garras</option>
+                            <option value="arrThree">Lavadora externa e interna de carcasas</option>+
+                            <option value="arrFour">Pre chiller de Pollos</option>
+                            <option value="arrFive">Chiller nº 1 de Pollos</option>
+                            <option value="arrThree">Chiller nº 2 de Pollos</option>
+                            <option value="arrSix">Chiller de Hígado-Corazón</option>
+                            <option value="arrSeven">Chiller de Panzas</option>
+                            <option value="arrEight">Chiller de Cogotes</option>
+                            <option value="arrNine">Chiller de Garras</option>
+                        </select>
+                    </li>
+                    <li class="liOne">
+                        <button type="button" id="BCalcular">Calcular</button>
+                    </li>    
+                </ul>
+            </form>
 
-    <form action="" id="formStart">
-        <ul>
-            <li>
-                <label for="ITime">Hora Inicial: </label>
-                <input type="time" name="initial-time" id="ITime" value="04:20">
-            </li>
-            <li>
-                <label for="FTime">Hora Final: </label>
-                <input type="time" name="final-time" id="FTime" value="06:24">
-            </li>
-            <li>
-                <label for="VNoria">Velocidad de noria (aves/hora): </label>
-                <input type="number" name="noria" id="VNoria" value="8500">
-            </li>
-            <li>    
-                <label for="ICaudal">Caudal Inicial (litros): </label>
-                <input type="number" name="inital-caudal" id="ICaudal" value="10000">
-            </li>
-            <li>
-                <label for="FCaudal">Caudal Final (litros): </label>
-                <input type="number" name="final-caudal" id="FCaudal" value="13000">
-            </li>
-            <li>
-                <select name="caudaltype" id="CType">
-                    <option value="">Seleccionar un caudalimetro</option>
-                    <option value="esPollo">Escaldadora de pollos</option>
-                    <option value="duchaPDes">Ducha postdeslume</option>
-                    <option value="esGarras">Escaldadora de garras</option>
-                    <option value="duchaPevis">Lavadora externa e interna de carcasas</option>+
-                    <option value="pCh">Pre chiller de Pollos</option>
-                    <option value="ch1">Chiller nº 1 de Pollos</option>
-                    <option value="ch2">Chiller nº 2 de Pollos</option>
-                    <option value="chHC">Chiller de Higado-Corazon</option>
-                    <option value="chM">Chiller de Panzas</option>
-                    <option value="chC">Chiller de Cogotes</option>
-                    <option value="chG">Chiller de Garras</option>
-                </select>
-            </li>
-            <li>
-                <button type="button" id="BCalcular">Calcular</button>
-            </li>
-        </ul>
-    </form>
+            <div id="ResultDiv" hidden>
+                <ul>
+                    <li class="liResultDiv">
+                        <p>Caudal:</p>
+                        <span id="LPorAves"></span>
+                    </li>
+                    <li class="liResultDiv">
+                        <p>Caudal mínimo:</p>
+                        <span id="caudalMin"></span>
+                    </li>
+                    <li class="liResultDiv">
+                        <p>Intervalo de tiempo:</p>
+                        <span id="interTiempo"></span>
+                    </li>
+                    <li class="liResultDiv">
+                        <p>Litros consumidos:</p>
+                        <span id="LConsumidos"></span>
+                    </li>
+                    <li class="liResultDiv">
+                        <button type="button" id="BDeNuevo">Calcular de nuevo</button>
+                    </li>
+                </ul>
+            </div>
 
-    <Div id="ResultDiv" hidden>
-        <p>Caudal: <span id="LPorAves"></span></p>
-        <p>Intervalo de tiempo: <span id="interTiempo"></span></p>
-        <p>Litros consumidos: <span id="LConsumidos"></span></p>
-        <p>
-            <button type="button" id="BDeNuevo">Calcular de nuevo</button>
-        </p>
-    </Div>
+        </section>
 
-    
-    
+        <section id="sTwo" hidden>
+
+            <form action="">
+                <ul class="ulStwo">
+                    <li class="liTwo Caudal">
+                        <label for="caudalMC">Caudal actual</label>
+                        <input type="number" name="caudalMCi" id="caudalMC" value="900">
+                        <select name="caudalMCi" id="caudalMCi">
+                            <option value="litros">l/h</option>
+                            <option value="metros">m³/h</option>
+                        </select>
+                    </li>
+                    <li class="liTwo">
+                        <label for="noriaMC">Vel. de noria (aves/hora)</label>
+                        <input type="number" name="noriaMC" id="noriaMC" value="4600" max="8500">
+                    </li>
+                    <li class="liOneSelect">
+                        <label for="CTypeMC">Seleccionar un caudalímetro: </label>
+                        <select name="caudaltypeMC" id="CTypeMC" class='selectBar' required>
+                            <option value="">---</option>
+                            <option value="arrOne">Escaldadora de pollos</option>
+                            <option value="arrOne">Ducha postdeslume</option>
+                            <option value="arrTwo">Escaldadora de garras</option>
+                            <option value="arrThree">Lavadora externa e interna de carcasas</option>+
+                            <option value="arrFour">Pre chiller de Pollos</option>
+                            <option value="arrFive">Chiller nº 1 de Pollos</option>
+                            <option value="arrThree">Chiller nº 2 de Pollos</option>
+                            <option value="arrSix">Chiller de Hígado-Corazón</option>
+                            <option value="arrSeven">Chiller de Panzas</option>
+                            <option value="arrEight">Chiller de Cogotes</option>
+                            <option value="arrNine">Chiller de Garras</option>
+                        </select>
+                    </li>
+                    <li class="liOne two">
+                        <button type="button" id="calcularMC">Calcular</button>
+                    </li>
+                    <li class="liResultDiv">
+                        <p>Caudal:</p>
+                        <span id="resultMC"></span>
+                    </li>
+                    <li class="liResultDiv">
+                        <p>Caudal mínimo:</p>
+                        <span id="caudalMinMetric"></span>
+                    </li>    
+                </ul>
+            </form>
+        </section>
 </body>
 </html>
