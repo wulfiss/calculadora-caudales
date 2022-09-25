@@ -397,14 +397,11 @@ section#sOne{
     display: flex;
     flex-direction: column;
     padding: 5px;
+    width: 320px;
 }
 
 form#formStart{
     height: 100%;
-}
-
-.selectBar{
-    width: 90%;
 }
 
 input[type='number']{
@@ -421,11 +418,14 @@ ul#ulOne{
 li.liOne{
     height: 40px;
     display: flex;
-    gap: 10px;
+    gap: 5px;
 }
 
 li.liOne label{
-    width: 100px;
+    width: 140px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
 }
 
 li.liOneSelect{
@@ -436,5 +436,52 @@ li.liOneSelect{
 
 li.liOneSelect > label,
 li.liOneSelect > select.selectBar{
-    height: 28px;
+    height: 29px;
+}
+
+li.liOneSelect > label{
+    font-weight: bold;
+}
+
+input{
+    padding: 5px 5px;
+}
+
+button#BCalcular,
+button#BDeNuevo{
+    width: 100px;
+    margin-inline: auto;
+}
+
+div#ResultDiv{
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+}
+
+div#ResultDiv ul{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+li.liResultDiv{
+    font-weight: bold;
+    display: flex;
+    gap: 7px;
+    font-size: 18px;
+}
+
+button{
+    font-weight: bold;
+}
+
+span.redResult{
+    color: red;
+}
+
+span.greenResult{
+    color: green;
 }

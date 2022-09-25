@@ -219,6 +219,45 @@
 
 (function calculator(){
 
+    const caudales ={
+        arrOne:[ /*Escaldadora de pollos - Desplume*/
+            {minimo: 0.2, txtMinimo:'0.20 Litros/aves'}
+        ],
+    
+        arrTwo:[ /*Escaldadora de garras*/
+            {minimo: 0.2, txtMinimo:'0.20 L/Kg de garras'}
+        ],
+    
+        arrThree:[ /*PostEviscerado - Ch2*/
+            {minimo: 1.50, txtMinimo:'1.50 Litros/aves'}
+        ],
+    
+        arrFour:[ /*PreCh*/
+            {minimo: 0.2, txtMinimo:'0.20 Litros/aves'}
+        ],
+    
+        arrFive:[ /*Ch1*/
+            {minimo: 0.2, txtMinimo:'0.20 Litros/aves'}
+        ],
+    
+        arrSix:[ /*higado-corazon*/
+            {minimo: 1.00, txtMinimo:'1.00 L/Kg de Hígado-Corazón'}
+        ],
+    
+        arrSeven:[ /*panza*/
+            {minimo: 1.00, txtMinimo:'1.00 L/Kg de Molleja'}
+        ],
+    
+        arrEight:[/*Cogote*/
+            {minimo: 1.00, txtMinimo:'1.00 L/Kg de cogotes'}
+        ],
+    
+        arrNine:[ /*Ch garras*/
+            {minimo: 1.00, txtMinimo:'1.00 L/Kg de garras'}
+        ],
+        
+    };
+
     const subMinutes = (values) =>{
         const validate = time =>{
             if(time > 59 || time < 0){
@@ -273,6 +312,7 @@
         let lPorAvesS = document.querySelector('#LPorAves');
         let interTiempoS = document.querySelector('#interTiempo');
         let lConsumidosS = document.querySelector('#LConsumidos');
+        let caudalMin = document.querySelector('#caudalMin');
 
         let $Calcular = document.querySelector('#BCalcular');
         let $DeNuevo = document.querySelector('#BDeNuevo');
@@ -280,7 +320,7 @@
         return{
             resultDiv, formStart, timeOne, timeTwo,
             litrosOne, litrosTwo, vNoria, $select, lPorAvesS, interTiempoS,
-            lConsumidosS, $Calcular, $DeNuevo
+            lConsumidosS, $Calcular, $DeNuevo, caudalMin
         }
     }
 
@@ -294,20 +334,35 @@
         }
     }
     
+    const changeColor = (caudalLtrs, place) => {
+        
+        let xCaudal = Array.from(caudales[place]);
+
+        input()["caudalMin"].textContent = xCaudal[0]['txtMinimo'];
+
+        if(caudalLtrs > xCaudal[0]['minimo']){
+            input()["lPorAvesS"].setAttribute('class', 'greenResult');           
+        }else if(caudalLtrs <= xCaudal[0]['minimo']){
+            input()["lPorAvesS"].setAttribute('class', 'redResult');
+        }
+
+    }
+    
+
     const render = () => {
         let variable = 1;
         let unitT = 'L/aves';
 
-        if (input()["$select"] == 'esGarras' || input()["$select"] == 'chG'){
+        if (input()["$select"] == 'arrTwo' || input()["$select"] == 'arrNine'){
             variable = 0.07;
             unitT = 'L/Kg de garras'
-        } else if(input()["$select"] == 'chHC'){
+        } else if(input()["$select"] == 'arrEight'){
             variable = 0.075;
-            unitT = 'L/Kg de Hígado - Corazón';
-        } else if(input()["$select"] == 'chM'){
+            unitT = 'L/Kg de Hígado-Corazón';
+        } else if(input()["$select"] == 'arrNine'){
             variable = 0.03;
             unitT = 'L/Kg de Molleja';
-        } else if(input()["$select"] == 'chC'){
+        } else if(input()["$select"] == 'arrTen'){
             variable = 0.08;
             unitT = 'L/Kg de cogotes'
         }
@@ -320,6 +375,7 @@
         input()["lPorAvesS"].textContent = litresPerChicken;
         input()["interTiempoS"].textContent = restTime + " Horas";
         input()["lConsumidosS"].textContent = litrosT + " Litros";
+        changeColor(((input()["litrosTwo"] - input()["litrosOne"])/(input()["vNoria"] * restTimeFloat * variable)).toFixed(2), input()["$select"]);
     }
 
     const button = () => {
