@@ -43,7 +43,7 @@
 
 })();
 
-(function metricubic(){
+(function metriCubic(){
     
     const caudales ={
         arrOne:[ /*Escaldadora de pollos - Desplume*/
