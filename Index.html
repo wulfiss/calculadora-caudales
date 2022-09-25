@@ -88,22 +88,22 @@
         <section id="sTwo" hidden>
 
             <form action="">
-                <ul>
-                    <li>
-                        <label for="caudalMC">Caudal: </label>
+                <ul class="ulStwo">
+                    <li class="liTwo Caudal">
+                        <label for="caudalMC">Caudal actual</label>
                         <input type="number" name="caudalMCi" id="caudalMC" value="900">
-                        <input type="radio" name="unitC" id="litrosR" value="litros" checked>
-                        <label for="litrosR">l/h</label>
-                        <input type="radio" name="unitC" id="metrosR" value="metros">
-                        <label for="metrosR">m3/h</label>
+                        <select name="caudalMCi" id="caudalMCi">
+                            <option value="litros">l/h</option>
+                            <option value="metros">m³/h</option>
+                        </select>
                     </li>
-                    <li>
-                        <label for="noriaMC">Vel. de noria (aves/hora): </label>
+                    <li class="liTwo">
+                        <label for="noriaMC">Vel. de noria (aves/hora)</label>
                         <input type="number" name="noriaMC" id="noriaMC" value="4600" max="8500">
                     </li>
-                    <li>
+                    <li class="liOneSelect">
                         <label for="CTypeMC">Seleccionar un caudalímetro: </label>
-                        <select name="caudaltypeMC" id="CTypeMC" required>
+                        <select name="caudaltypeMC" id="CTypeMC" class='selectBar' required>
                             <option value="">---</option>
                             <option value="arrOne">Escaldadora de pollos</option>
                             <option value="arrOne">Ducha postdeslume</option>
@@ -118,14 +118,19 @@
                             <option value="arrNine">Chiller de Garras</option>
                         </select>
                     </li>
-                    <li>
+                    <li class="liOne two">
                         <button type="button" id="calcularMC">Calcular</button>
+                    </li>
+                    <li class="liResultDiv">
+                        <p>Caudal:</p>
+                        <span id="resultMC"></span>
+                    </li>
+                    <li class="liResultDiv">
+                        <p>Caudal mínimo:</p>
+                        <span id="caudalMinMetric"></span>
                     </li>    
                 </ul>
             </form>
-
-            <div id="resultMC"></div>
-
         </section>
 </body>
 </html>

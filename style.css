@@ -402,7 +402,7 @@ section#sOne{
     width: 320px;
 }
 
-form#formStart{
+form{
     height: 100%;
 }
 
@@ -410,20 +410,24 @@ input[type='number']{
     width: 100px;
 }
 
-ul#ulOne{
+ul#ulOne,
+ul.ulStwo{
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
 
-li.liOne{
+li.liOne,
+li.liTwo{
     height: 40px;
     display: flex;
     gap: 5px;
 }
 
-li.liOne label{
+li.liOne label,
+li.liTwo label
+{
     width: 140px;
     display: flex;
     align-items: center;
@@ -498,4 +502,21 @@ span.redResult{
 
 span.greenResult{
     color: green;
+}
+
+
+section#sTwo{
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    padding: 5px;
+    width: 320px;
+}
+
+li.liOne.two{
+    justify-content: center;
+}
+
+li.liOne.two button{
+    width: 100px;
 }
