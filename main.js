@@ -258,7 +258,7 @@
         ],
     
         arrSix:[ /*higado-corazon*/
-            {minimo: 1.00, txtMinimo:'1.00 l/kg de Hígado-Corazón'}
+            {minimo: 1.00, txtMinimo:'1.00 l/kg de HgdCrzn'}
         ],
     
         arrSeven:[ /*panza*/
@@ -368,7 +368,7 @@
 
     const render = () => {
         let variable = 1;
-        let unitT = 'L/aves';
+        let unitT = 'l/aves';
 
         if (input()["$select"] == 'arrTwo' || input()["$select"] == 'arrNine'){
             variable = 0.07;
@@ -399,7 +399,6 @@
 
 
         input()["$Calcular"].addEventListener('click', (e) =>{
-            input();
             render();
             displayHidden(true);
         });
