@@ -372,7 +372,9 @@ body{
     margin: auto;
     display: flex;
     flex-direction: column;
+    background-color: rgb(207, 179, 233);
 }
+
 
 ul, li{
     list-style: none;
@@ -476,6 +478,18 @@ li.liResultDiv{
 
 button{
     font-weight: bold;
+}
+
+button:active{
+    transform: translateY(2px);
+} 
+
+button.tabBtn.active{
+    background-color: crimson;
+}
+
+button.tabBtn.inactive{
+    background-color: beige;
 }
 
 span.redResult{

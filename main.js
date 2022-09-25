@@ -13,9 +13,13 @@
 
     const display = (state) =>{
         if(state == true){
+            input()["$calculadoraFull"].setAttribute('class', 'tabBtn active');
+            input()["$calculadoraRapida"].setAttribute('class', 'tabBtn inactive');
             input()["sectionOne"].style.display = 'flex';
             input()["sectionTwo"].style.display = 'none';
         }else if(state == false){
+            input()["$calculadoraFull"].setAttribute('class', 'tabBtn inactive');
+            input()["$calculadoraRapida"].setAttribute('class', 'tabBtn active');
             input()["sectionOne"].style.display = 'none';
             input()["sectionTwo"].style.display = 'flex';
         }
