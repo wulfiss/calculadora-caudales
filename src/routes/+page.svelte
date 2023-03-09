@@ -20,7 +20,6 @@
 </script>
 
 <TabBar {tabs} let:tab bind:active>
-    <!-- Note: the `tab` property is required! -->
     <Tab {tab} on:click={handleActionClicked(tab.id)}>
       <Label>{tab.name}</Label>
     </Tab>
