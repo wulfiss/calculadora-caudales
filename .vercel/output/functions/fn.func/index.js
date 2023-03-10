@@ -2090,9 +2090,23 @@ var init_top_app_bar = __esm({
   }
 });
 
-// .svelte-kit/output/server/chunks/SmuiElement.js
+// .svelte-kit/output/server/chunks/classAdderBuilder.js
 function classMap(classObj) {
   return Object.entries(classObj).filter(([name, value]) => name !== "" && value).map(([name]) => name).join(" ");
+}
+function dispatch(element, eventType, detail, eventInit = { bubbles: true }, duplicateEventForMDC = false) {
+  if (typeof Event !== "undefined" && element) {
+    const event = new CustomEvent(eventType, Object.assign(Object.assign({}, eventInit), { detail }));
+    element === null || element === void 0 ? void 0 : element.dispatchEvent(event);
+    if (duplicateEventForMDC && eventType.startsWith("SMUI")) {
+      const duplicateEvent = new CustomEvent(eventType.replace(/^SMUI/g, () => "MDC"), Object.assign(Object.assign({}, eventInit), { detail }));
+      element === null || element === void 0 ? void 0 : element.dispatchEvent(duplicateEvent);
+      if (duplicateEvent.defaultPrevented) {
+        event.preventDefault();
+      }
+    }
+    return event;
+  }
 }
 function forwardEventsBuilder(component3) {
   let $on;
@@ -2195,9 +2209,21 @@ function forwardEventsBuilder(component3) {
     };
   };
 }
-var oldModifierRegex, newModifierRegex, SmuiElement;
-var init_SmuiElement = __esm({
-  ".svelte-kit/output/server/chunks/SmuiElement.js"() {
+function classAdderBuilder(props) {
+  return new Proxy(ClassAdder, {
+    construct: function(target, args) {
+      Object.assign(internals, defaults, props);
+      return new target(...args);
+    },
+    get: function(target, prop) {
+      Object.assign(internals, defaults, props);
+      return target[prop];
+    }
+  });
+}
+var oldModifierRegex, newModifierRegex, SmuiElement, Object_1, internals, ClassAdder, defaults;
+var init_classAdderBuilder = __esm({
+  ".svelte-kit/output/server/chunks/classAdderBuilder.js"() {
     init_index2();
     oldModifierRegex = /^[a-z]+(?::(?:preventDefault|stopPropagation|passive|nonpassive|capture|once|self))+$/;
     newModifierRegex = /^[^$]+(?:\$(?:preventDefault|stopPropagation|passive|nonpassive|capture|once|self))+$/;
@@ -2239,6 +2265,96 @@ var init_SmuiElement = __esm({
         return tag$1 ? `<${tag}${spread([escape_object($$restProps)], {})}${add_attribute("this", element, 0)}>${is_void(tag$1) ? "" : `${slots.default ? slots.default({}) : ``}`}${is_void(tag$1) ? "" : `</${tag$1}>`}` : "";
       })(tag)}`}`;
     });
+    ({ Object: Object_1 } = globals);
+    internals = {
+      component: SmuiElement,
+      tag: "div",
+      class: "",
+      classMap: {},
+      contexts: {},
+      props: {}
+    };
+    ClassAdder = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      let $$restProps = compute_rest_props($$props, ["use", "class", "component", "tag", "getElement"]);
+      let { use = [] } = $$props;
+      let { class: className = "" } = $$props;
+      let element;
+      const smuiClass = internals.class;
+      const smuiClassMap = {};
+      const smuiClassUnsubscribes = [];
+      const contexts = internals.contexts;
+      const props = internals.props;
+      let { component: component3 = internals.component } = $$props;
+      let { tag = component3 === SmuiElement ? internals.tag : void 0 } = $$props;
+      Object.entries(internals.classMap).forEach(([name, context]) => {
+        const store = getContext(context);
+        if (store && "subscribe" in store) {
+          smuiClassUnsubscribes.push(store.subscribe((value) => {
+            smuiClassMap[name] = value;
+          }));
+        }
+      });
+      const forwardEvents = forwardEventsBuilder(get_current_component());
+      for (let context in contexts) {
+        if (contexts.hasOwnProperty(context)) {
+          setContext(context, contexts[context]);
+        }
+      }
+      onDestroy(() => {
+        for (const unsubscribe of smuiClassUnsubscribes) {
+          unsubscribe();
+        }
+      });
+      function getElement() {
+        return element.getElement();
+      }
+      if ($$props.use === void 0 && $$bindings.use && use !== void 0)
+        $$bindings.use(use);
+      if ($$props.class === void 0 && $$bindings.class && className !== void 0)
+        $$bindings.class(className);
+      if ($$props.component === void 0 && $$bindings.component && component3 !== void 0)
+        $$bindings.component(component3);
+      if ($$props.tag === void 0 && $$bindings.tag && tag !== void 0)
+        $$bindings.tag(tag);
+      if ($$props.getElement === void 0 && $$bindings.getElement && getElement !== void 0)
+        $$bindings.getElement(getElement);
+      let $$settled;
+      let $$rendered;
+      do {
+        $$settled = true;
+        $$rendered = `${validate_component(component3 || missing_component, "svelte:component").$$render(
+          $$result,
+          Object_1.assign(
+            {},
+            { tag },
+            { use: [forwardEvents, ...use] },
+            {
+              class: classMap({
+                [className]: true,
+                [smuiClass]: true,
+                ...smuiClassMap
+              })
+            },
+            props,
+            $$restProps,
+            { this: element }
+          ),
+          {
+            this: ($$value) => {
+              element = $$value;
+              $$settled = false;
+            }
+          },
+          {
+            default: () => {
+              return `${slots.default ? slots.default({}) : ``}`;
+            }
+          }
+        )}`;
+      } while (!$$settled);
+      return $$rendered;
+    });
+    defaults = Object.assign({}, internals);
   }
 });
 
@@ -2247,39 +2363,13 @@ var layout_svelte_exports = {};
 __export(layout_svelte_exports, {
   default: () => Layout
 });
-function dispatch(element, eventType, detail, eventInit = { bubbles: true }, duplicateEventForMDC = false) {
-  if (typeof Event !== "undefined" && element) {
-    const event = new CustomEvent(eventType, Object.assign(Object.assign({}, eventInit), { detail }));
-    element === null || element === void 0 ? void 0 : element.dispatchEvent(event);
-    if (duplicateEventForMDC && eventType.startsWith("SMUI")) {
-      const duplicateEvent = new CustomEvent(eventType.replace(/^SMUI/g, () => "MDC"), Object.assign(Object.assign({}, eventInit), { detail }));
-      element === null || element === void 0 ? void 0 : element.dispatchEvent(duplicateEvent);
-      if (duplicateEvent.defaultPrevented) {
-        event.preventDefault();
-      }
-    }
-    return event;
-  }
-}
-function classAdderBuilder(props) {
-  return new Proxy(ClassAdder, {
-    construct: function(target, args) {
-      Object.assign(internals, defaults, props);
-      return new target(...args);
-    },
-    get: function(target, prop) {
-      Object.assign(internals, defaults, props);
-      return target[prop];
-    }
-  });
-}
-var TopAppBar, Object_1, internals, ClassAdder, defaults, Row, Section, Title, Layout;
+var TopAppBar, Row, Section, Title, Layout;
 var init_layout_svelte = __esm({
   ".svelte-kit/output/server/entries/pages/_layout.svelte.js"() {
     init_index2();
     init_top_app_bar();
     init_chunks();
-    init_SmuiElement();
+    init_classAdderBuilder();
     TopAppBar = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       let $$restProps = compute_rest_props($$props, [
         "use",
@@ -2458,96 +2548,6 @@ var init_layout_svelte = __esm({
       )}${add_attribute("this", element, 0)}>${slots.default ? slots.default({}) : ``}
 </header>`;
     });
-    ({ Object: Object_1 } = globals);
-    internals = {
-      component: SmuiElement,
-      tag: "div",
-      class: "",
-      classMap: {},
-      contexts: {},
-      props: {}
-    };
-    ClassAdder = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      let $$restProps = compute_rest_props($$props, ["use", "class", "component", "tag", "getElement"]);
-      let { use = [] } = $$props;
-      let { class: className = "" } = $$props;
-      let element;
-      const smuiClass = internals.class;
-      const smuiClassMap = {};
-      const smuiClassUnsubscribes = [];
-      const contexts = internals.contexts;
-      const props = internals.props;
-      let { component: component3 = internals.component } = $$props;
-      let { tag = component3 === SmuiElement ? internals.tag : void 0 } = $$props;
-      Object.entries(internals.classMap).forEach(([name, context]) => {
-        const store = getContext(context);
-        if (store && "subscribe" in store) {
-          smuiClassUnsubscribes.push(store.subscribe((value) => {
-            smuiClassMap[name] = value;
-          }));
-        }
-      });
-      const forwardEvents = forwardEventsBuilder(get_current_component());
-      for (let context in contexts) {
-        if (contexts.hasOwnProperty(context)) {
-          setContext(context, contexts[context]);
-        }
-      }
-      onDestroy(() => {
-        for (const unsubscribe of smuiClassUnsubscribes) {
-          unsubscribe();
-        }
-      });
-      function getElement() {
-        return element.getElement();
-      }
-      if ($$props.use === void 0 && $$bindings.use && use !== void 0)
-        $$bindings.use(use);
-      if ($$props.class === void 0 && $$bindings.class && className !== void 0)
-        $$bindings.class(className);
-      if ($$props.component === void 0 && $$bindings.component && component3 !== void 0)
-        $$bindings.component(component3);
-      if ($$props.tag === void 0 && $$bindings.tag && tag !== void 0)
-        $$bindings.tag(tag);
-      if ($$props.getElement === void 0 && $$bindings.getElement && getElement !== void 0)
-        $$bindings.getElement(getElement);
-      let $$settled;
-      let $$rendered;
-      do {
-        $$settled = true;
-        $$rendered = `${validate_component(component3 || missing_component, "svelte:component").$$render(
-          $$result,
-          Object_1.assign(
-            {},
-            { tag },
-            { use: [forwardEvents, ...use] },
-            {
-              class: classMap({
-                [className]: true,
-                [smuiClass]: true,
-                ...smuiClassMap
-              })
-            },
-            props,
-            $$restProps,
-            { this: element }
-          ),
-          {
-            this: ($$value) => {
-              element = $$value;
-              $$settled = false;
-            }
-          },
-          {
-            default: () => {
-              return `${slots.default ? slots.default({}) : ``}`;
-            }
-          }
-        )}`;
-      } while (!$$settled);
-      return $$rendered;
-    });
-    defaults = Object.assign({}, internals);
     Row = classAdderBuilder({
       class: "mdc-top-app-bar__row",
       tag: "div"
@@ -2639,9 +2639,9 @@ var init__ = __esm({
     init_layout();
     index = 0;
     component = async () => (await Promise.resolve().then(() => (init_layout_svelte(), layout_svelte_exports))).default;
-    file = "_app/immutable/entry/_layout.svelte.19e7b648.js";
+    file = "_app/immutable/entry/_layout.svelte.85df2c84.js";
     universal_id = "src/routes/+layout.js";
-    imports = ["_app/immutable/entry/_layout.svelte.19e7b648.js", "_app/immutable/chunks/index.34fa5dea.js", "_app/immutable/chunks/index.56777b5d.js", "_app/immutable/chunks/SmuiElement.7ef37f56.js", "_app/immutable/entry/_layout.js.984db11e.js", "_app/immutable/chunks/_layout.da46b06b.js"];
+    imports = ["_app/immutable/entry/_layout.svelte.85df2c84.js", "_app/immutable/chunks/index.1b484c40.js", "_app/immutable/chunks/index.0be7dce7.js", "_app/immutable/chunks/classAdderBuilder.1369a485.js", "_app/immutable/entry/_layout.js.984db11e.js", "_app/immutable/chunks/_layout.da46b06b.js"];
     stylesheets = [];
     fonts = [];
   }
@@ -2700,8 +2700,8 @@ var init__2 = __esm({
   ".svelte-kit/output/server/nodes/1.js"() {
     index2 = 1;
     component2 = async () => (await Promise.resolve().then(() => (init_error_svelte(), error_svelte_exports))).default;
-    file2 = "_app/immutable/entry/error.svelte.866abe89.js";
-    imports2 = ["_app/immutable/entry/error.svelte.866abe89.js", "_app/immutable/chunks/index.34fa5dea.js", "_app/immutable/chunks/singletons.d842ef75.js", "_app/immutable/chunks/index.56777b5d.js"];
+    file2 = "_app/immutable/entry/error.svelte.130312c1.js";
+    imports2 = ["_app/immutable/entry/error.svelte.130312c1.js", "_app/immutable/chunks/index.1b484c40.js", "_app/immutable/chunks/singletons.eff0362a.js", "_app/immutable/chunks/index.0be7dce7.js"];
     stylesheets2 = [];
     fonts2 = [];
   }
@@ -2810,7 +2810,7 @@ var options = {
   root: Root,
   service_worker: false,
   templates: {
-    app: ({ head, body, assets: assets2, nonce, env }) => '<!DOCTYPE html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<link rel="icon" href="' + assets2 + '/favicon.png" />\n		<meta name="viewport" content="width=device-width" />\n		<link\n  			rel="stylesheet"\n  		href="https://fonts.googleapis.com/icon?family=Material+Icons"\n		/>\n<!-- Roboto -->\n		<link\n			rel="stylesheet"\n			href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700"\n		/>\n<!-- Roboto Mono -->\n		<link\n			rel="stylesheet"\n			href="https://fonts.googleapis.com/css?family=Roboto+Mono"\n		/>\n		<link rel="stylesheet" href="' + assets2 + '/smui.css" />\n		<meta http-equiv="Permissions-Policy" content="interest-cohort=()">\n		' + head + '\n	</head>\n	<body data-sveltekit-preload-data="hover">\n		<div style="display: contents">' + body + "</div>\n	</body>\n</html>\n",
+    app: ({ head, body, assets: assets2, nonce, env }) => '<!DOCTYPE html>\r\n<html lang="en">\r\n	<head>\r\n		<meta charset="utf-8" />\r\n		<link rel="icon" href="' + assets2 + '/favicon.png" />\r\n		<meta name="viewport" content="width=device-width" />\r\n		<link\r\n  			rel="stylesheet"\r\n  		href="https://fonts.googleapis.com/icon?family=Material+Icons"\r\n		/>\r\n<!-- Roboto -->\r\n		<link\r\n			rel="stylesheet"\r\n			href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700"\r\n		/>\r\n<!-- Roboto Mono -->\r\n		<link\r\n			rel="stylesheet"\r\n			href="https://fonts.googleapis.com/css?family=Roboto+Mono"\r\n		/>\r\n		<link rel="stylesheet" href="' + assets2 + '/smui.css" />\r\n		<meta http-equiv="Permissions-Policy" content="interest-cohort=()">\r\n		' + head + '\r\n	</head>\r\n	<body data-sveltekit-preload-data="hover">\r\n		<div style="display: contents">' + body + "</div>\r\n	</body>\r\n</html>\r\n",
     error: ({ status, message }) => '<!DOCTYPE html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<title>' + message + `</title>
 
 		<style>
@@ -2858,7 +2858,7 @@ var options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "zln9e9"
+  version_hash: "hybu5s"
 };
 function get_hooks() {
   return {};
@@ -6054,10 +6054,10 @@ _manifest = new WeakMap();
 var manifest = {
   appDir: "_app",
   appPath: "_app",
-  assets: /* @__PURE__ */ new Set([".nojekyll", "favicon.png", "smui.css"]),
+  assets: /* @__PURE__ */ new Set(["favicon.png", "smui.css"]),
   mimeTypes: { ".png": "image/png", ".css": "text/css" },
   _: {
-    client: { "start": { "file": "_app/immutable/entry/start.77b52c1c.js", "imports": ["_app/immutable/entry/start.77b52c1c.js", "_app/immutable/chunks/index.34fa5dea.js", "_app/immutable/chunks/singletons.d842ef75.js", "_app/immutable/chunks/index.56777b5d.js"], "stylesheets": [], "fonts": [] }, "app": { "file": "_app/immutable/entry/app.3e7a3085.js", "imports": ["_app/immutable/entry/app.3e7a3085.js", "_app/immutable/chunks/index.34fa5dea.js"], "stylesheets": [], "fonts": [] } },
+    client: { "start": { "file": "_app/immutable/entry/start.3f9f77a7.js", "imports": ["_app/immutable/entry/start.3f9f77a7.js", "_app/immutable/chunks/index.1b484c40.js", "_app/immutable/chunks/singletons.eff0362a.js", "_app/immutable/chunks/index.0be7dce7.js"], "stylesheets": [], "fonts": [] }, "app": { "file": "_app/immutable/entry/app.4a115830.js", "imports": ["_app/immutable/entry/app.4a115830.js", "_app/immutable/chunks/index.1b484c40.js"], "stylesheets": [], "fonts": [] } },
     nodes: [
       () => Promise.resolve().then(() => (init__(), __exports)),
       () => Promise.resolve().then(() => (init__2(), __exports2))
