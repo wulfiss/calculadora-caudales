@@ -1,8 +1,8 @@
 <script lang='ts'>
     import Tab, { Label } from '@smui/tab';
     import TabBar from '@smui/tab-bar';
-    import Fast from './Components/Fast.svelte';
-    import Full from './Components/Full.svelte';
+    import Fast from './Components/fast/Fast.svelte';
+    import Full from './Components/full/Full.svelte';
 
     let tabs=[
     {id:0, a: 'Fast', name: 'Calculadora Rápida'},
