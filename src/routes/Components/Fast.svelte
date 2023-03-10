@@ -1,7 +1,6 @@
 <script lang='ts'>
     import Textfield from '@smui/textfield';
     import Select, { Option } from '@smui/select';
-    import Button, { Label } from '@smui/button';
     import { caudalimetros } from '../../lib/store';
 
     import FastOperation from './FastOperation.svelte';
