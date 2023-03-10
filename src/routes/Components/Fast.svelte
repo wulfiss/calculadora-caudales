@@ -1,8 +1,10 @@
 <script lang='ts'>
     import Textfield from '@smui/textfield';
     import Select, { Option } from '@smui/select';
-    import { caudalimetros } from '../../lib/store';
     import Button, { Label } from '@smui/button';
+    import { caudalimetros } from '../../lib/store';
+
+    import FastOperation from './FastOperation.svelte';
 
     let currentC: number = 800;
     let currentUnit: string = 'litro';
@@ -30,9 +32,7 @@
             </Select>
     </div> 
     <div>
-    <Button touch variant='raised'>
-        <Label>Calcular</Label>
-    </Button>
+        <FastOperation currentCaudal={currentC} noriaVel={velNoria} caudalID={caudalID} currentUnit={currentUnit} />
     </div>
 </div>
 
